@@ -229,7 +229,10 @@ const arr3 = arr1.map((item, indice, array) => {
   return item + 2;
 });
 console.log(`🚀 ~ arr3:`, arr3);
+<<<<<<< HEAD
 
+=======
+>>>>>>> e4ee46b (Clase3)
 /*
 Ejercicio 1: Usando .map()
 
