@@ -1,10 +1,10 @@
 // import process from 'node:process';
 // console.log(`🚀 ~ process:`, process)
 import { stdin, stdout, cwd, exit } from "node:process";
-import saludar from "./saludar.js";
+//import saludar from "./saludar.js";
 import path from "path";
 import fs from "fs/promises";
-saludar();
+//saludar();
 
 stdout.write("🚀 ~");
 
@@ -17,10 +17,12 @@ stdout.write("🚀 ~");
 // 6. **`touch <nombre_archivo>`**: Crea un nuevo archivo vacío con el nombre especificado.
 
 stdin.on("data", async (data) => {
+ 
   try {
     const input = data.toString().trim();
     const [command, ...args] = input.split(" ");
     console.log(command);
+
     switch (command) {
       case "pwd":
         stdout.write(`${cwd()}\n`);
@@ -59,18 +61,14 @@ stdin.on("data", async (data) => {
         let filePathTouch = path.resolve(cwd(), args.join(" "));
         let result = await fs.writeFile(filePathTouch, "");
         break;
-      case "ls":
+      
+        case "ls":
         try {
           let filePathDir = path.resolve(cwd());
-          let resultDir = await fs.readdir(filePathDir, {
-            withFileTypes: true,
-          });
+          let resultDir = await fs.readdir(filePathDir, {withFileTypes: true,});
           resultDir.forEach((data) => {
-            if (args && args[0] === "-l") {
-              stdout.write(
-                `${data.name}  ${
-                  data.isDirectory() ? "es un directorio" : "es un archivo"
-                }\n `
+            if (args[0] === "-l") {
+              stdout.write(`${data.name} ${data.isDirectory() ? "es un directorio" : "es un archivo"}\n `
               );
             } else {
               stdout.write(data.name + " ");
