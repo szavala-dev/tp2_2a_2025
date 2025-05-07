@@ -1,167 +1,236 @@
-#  Curso de Node.js
-
-Bienvenido al curso de **Node.js**, donde aprenderás desde los fundamentos de JavaScript hasta la creación de servidores web utilizando Express.js, bases de datos, APIs RESTful y buenas prácticas de desarrollo. Este curso está diseñado para estudiantes que desean adquirir habilidades prácticas en el desarrollo backend con Node.js.
-
-## Índice
-1.  [Clase 1: Introducción a Git](#clase-1-introducción-a-git)
-2.  [Clase 2: Fundamentos de JavaScript - Tipos de Datos](#clase-2-fundamentos-de-javascript---tipos-de-datos)
-3.  [Clase 3: Fundamentos de JavaScript - Funciones y Objetos](#clase-3-fundamentos-de-javascript---funciones-y-objetos)
-4.  [Clase 4: Programación Funcional en JavaScript](#clase-4-programación-funcional-en-javascript)
-5.  [Clase 5: Introducción a Node.js](#clase-5-introducción-a-nodejs)
-6.  [Clase 6: Haciendo un Programa Interactivo con Node.js](#clase-6-haciendo-un-programa-interactivo-con-nodejs)
-
-
----
-
-## Clase 1: Introducción a Git
+clase7## Clase 7: Fundamentos de la Web - Cliente-Servidor y Protocolo HTTP
 
 **Objetivos:**
 
-* Comprender qué es Git y su importancia en el desarrollo.
-* Configurar Git y utilizar comandos básicos.
-* Trabajar con ramas y repositorios remotos.
+* Comprender la arquitectura cliente-servidor y el protocolo HTTP.
+* Utilizar métodos HTTP y códigos de estado.
+* Comprender qué son las APIs RESTful y cómo funcionan.
 
 **Contenido:**
 
-* ¿Qué es Git y por qué es importante?
-* Configuración inicial de Git.
-* Comandos básicos: `init`, `add`, `commit`, `status`, `log`.
-* Trabajo con ramas: creación, cambio y fusión (`branch`, `checkout`, `merge`).
-* Uso de GitHub/GitLab: subir repositorios remotos (`push`, `pull`, `clone`).
+### 1. Arquitectura Cliente-Servidor: Conceptos Básicos
 
----
+Imagina un restaurante. El **cliente** (tú, el comensal) hace una **petición** al **servidor** (el camarero y la cocina) para obtener un servicio (comida). El servidor procesa la petición y envía una **respuesta** al cliente (tu plato).
 
-## Clase 2: Fundamentos de JavaScript - Tipos de Datos y operadores
+En el mundo de la web, la arquitectura cliente-servidor funciona de manera similar:
 
-**Objetivos:**
+* **Cliente:** Una aplicación (generalmente un navegador web como Chrome, Firefox, Safari) que realiza peticiones de recursos.
+* **Servidor:** Una computadora o software que recibe las peticiones del cliente, las procesa y envía las respuestas. Estas respuestas suelen ser archivos HTML, CSS, JavaScript, imágenes, videos, datos en formato JSON o XML, etc.
 
-* Comprender la historia y evolución de JavaScript.
-* Diferenciar los entornos de ejecución: navegador y Node.js.
-* Dominar la declaración de variables con `var`, `let` y `const`.
-* Identificar y utilizar los tipos de datos primitivos y compuestos.
-* Aplicar métodos para manipular strings y arrays.
-* Operadores.
-* Resolver problemas prácticos utilizando los conceptos aprendidos.
+**Flujo típico:**
 
-**Contenido:**
+1.  El cliente (navegador) envía una **petición** al servidor (ej. `www.google.com`).
+2.  El servidor recibe la petición y la procesa (busca la página solicitada).
+3.  El servidor envía una **respuesta** al cliente (el código HTML de la página de Google).
+4.  El cliente (navegador) interpreta la respuesta y la muestra al usuario.
 
-* Historia y evolución de JavaScript.
-* Entorno de ejecución: navegador vs Node.js.
-* Declaración de variables: `var`, `let`, `const`.
-* Tipos primitivos: `string`, `number`, `boolean`, `null`, `undefined`, `symbol`.
-* Tipos compuestos: objetos y arrays.
-* Métodos útiles para manipular strings y arrays.
-* Operadores Aritméticos, Operadores de Asignación,  Operadores de Comparación, Operadores Lógicos
-* Operador Ternario
-* Operadores de Tipo
-* Operadores Especiales: Operador Spread , Operador Nullish Coalescing, Operador Optional Chaining
-* Ejercicios prácticos: manipulación de datos y resolución de problemas.
+### 2. Protocolo HTTP: Métodos, Códigos de Estado, Cabeceras
 
----
+El **Protocolo de Transferencia de Hipertexto (HTTP)** es el lenguaje que utilizan los clientes y servidores web para comunicarse. Define cómo se formatean y transmiten los mensajes.
 
-## Clase 3: Fundamentos de JavaScript - Funciones y Objetos
+**Métodos HTTP (Verbos):** Indican la acción que el cliente quiere realizar en el servidor. Los más comunes son:
 
-**Objetivos:**
+* **`GET`:** Solicita un recurso específico al servidor (ej. pedir una página web).
+    ```
+    GET /index.html HTTP/1.1
+    Host: [www.example.com](https://www.example.com)
+    ```
+* **`POST`:** Envía datos al servidor para crear un nuevo recurso (ej. enviar un formulario de registro).
+    ```
+    POST /users HTTP/1.1
+    Host: [www.example.com](https://www.example.com)
+    Content-Type: application/json
+    Content-Length: ...
 
-* Dominar la creación y uso de funciones en JavaScript.
-* Comprender el concepto de scope y closures.
-* Aprender a manipular objetos y sus métodos.
+    { "name": "Juan", "email": "[dirección de correo electrónico eliminada]" }
+    ```
+* **`PUT`:** Envía datos para actualizar un recurso existente en el servidor (ej. actualizar la información de un usuario).
+    ```
+    PUT /users/123 HTTP/1.1
+    Host: [www.example.com](https://www.example.com)
+    Content-Type: application/json
+    Content-Length: ...
 
-**Contenido:**
+    { "email": "[dirección de correo electrónico eliminada]", "age": 30 }
+    ```
+* **`DELETE`:** Solicita al servidor que elimine un recurso específico (ej. eliminar un usuario).
+    ```
+    DELETE /users/123 HTTP/1.1
+    Host: [www.example.com](https://www.example.com)
+    ```
 
-* Funciones básicas: declaración, expresión y funciones flecha.
-* Parámetros y argumentos: paso por valor y referencia.
-* Scope: variables locales y globales.
-* Callbacks: concepto básico.
-* Funciones Lamda
-* Funciones Closure
-* Metodos de Objetos.
-* Ejercicios prácticos: resolver problemas simples usando funciones y objetos.
+**Códigos de Estado HTTP:** Son códigos de tres dígitos que el servidor envía en la respuesta para indicar el resultado de la petición. Se dividen en categorías:
 
----
+* **1xx (Informativo):** La petición fue recibida y el proceso continúa.
+* **2xx (Éxito):** La petición fue recibida, entendida y aceptada.
+    * **`200 OK`:** La petición tuvo éxito y la respuesta contiene el recurso solicitado.
+    * **`201 Created`:** La petición tuvo éxito y se creó un nuevo recurso.
+* **3xx (Redirección):** Se necesitan acciones adicionales para completar la petición.
+    * **`301 Moved Permanently`:** El recurso solicitado se ha movido permanentemente a una nueva URL.
+    * **`302 Found` (o `307 Temporary Redirect`):** El recurso se encuentra temporalmente en otra URL.
+* **4xx (Error del Cliente):** La petición contiene errores y no puede ser procesada.
+    * **`400 Bad Request`:** La petición no pudo ser entendida por el servidor debido a una sintaxis inválida.
+    * **`401 Unauthorized`:** Se requiere autenticación para acceder al recurso.
+    * **`403 Forbidden`:** El servidor entiende la petición pero se niega a autorizarla.
+    * **`404 Not Found`:** El servidor no pudo encontrar el recurso solicitado.
+* **5xx (Error del Servidor):** El servidor encontró un error y no pudo completar la petición.
+    * **`500 Internal Server Error`:** El servidor encontró una condición inesperada que le impidió cumplir la petición.
+    * **`503 Service Unavailable`:** El servidor no está listo para manejar la petición (puede estar sobrecargado o en mantenimiento).
 
-# Clase 4: Promesas en JavaScript
+**Cabeceras HTTP (Headers):** Proporcionan información adicional sobre la petición o la respuesta. Se envían tanto del cliente al servidor como del servidor al cliente. Algunos ejemplos:
 
-## Objetivos:
+* `Host`: Especifica el nombre de dominio del servidor al que se está enviando la petición.
+* `Content-Type`: Indica el tipo de contenido del cuerpo de la petición o la respuesta (ej. `application/json`, `text/html`).
+* `Content-Length`: Especifica el tamaño del cuerpo de la petición o la respuesta en bytes.
+* `User-Agent`: Identifica el navegador o la aplicación cliente que realiza la petición.
+* `Authorization`: Contiene las credenciales de autenticación del cliente.
 
-* Comprender qué son las promesas y cómo funcionan.
-* Aplicar promesas para manejar operaciones asíncronas.
-* Utilizar `then`, `catch` y `finally` para gestionar resultados y errores.
-* Implementar funciones que retornen promesas y encadenarlas eficientemente.
-* Aprender a usar `async/await` para simplificar el manejo de promesas.
+### 3. ¿Qué es una API?
 
-## Contenido:
+Una **Interfaz de Programación de Aplicaciones (API)** es un conjunto de reglas y especificaciones que permiten que diferentes aplicaciones de software se comuniquen e intercambien datos entre sí. Piensa en una API como un **intermediario**. En lugar de que una aplicación acceda directamente a la base de datos de otra, interactúa con la API, que define cómo se pueden solicitar y recibir los datos.
 
-* **Introducción a las promesas:**
-  - ¿Qué son las promesas?
-  - Estados de una promesa: `pending`, `fulfilled`, `rejected`.
-  - Ventajas de usar promesas frente a callbacks.
+**Tipos de APIs:**
 
-* **Métodos principales de las promesas:**
-  - `.then`: Manejar resultados exitosos.
-  - `.catch`: Capturar y manejar errores.
-  - `.finally`: Ejecutar código independientemente del resultado.
+* APIs RESTful: Basadas en el estándar REST (Representational State Transfer).
+* APIs SOAP: Basadas en XML y más rígidas.
+* APIs GraphQL: Permiten consultas más flexibles.
 
-* **Creación de promesas personalizadas:**
-  - Uso del constructor `new Promise`.
-  - Resolución (`resolve`) y rechazo (`reject`) de promesas.
+**Ejemplos cotidianos de APIs:**
 
-* **Encadenamiento de promesas:**
-  - Cómo encadenar múltiples `.then` para procesar datos paso a paso.
-  - Evitar el "callback hell" con promesas.
+* Una aplicación móvil que muestra el pronóstico del tiempo utiliza una API de un servicio meteorológico para obtener los datos.
+* Una aplicación de redes sociales que te permite compartir contenido en otras plataformas utiliza las APIs de esas plataformas.
 
-* **Uso de `async/await`:**
-  - Simplificar el manejo de promesas con `async/await`.
-  - Diferencias entre `async/await` y el uso de `.then/.catch`.
-  - Buenas prácticas al usar `async/await`.
+### 4. REST (Representational State Transfer)
 
----
+**REST** es un estilo de arquitectura para diseñar APIs que se centra en la transferencia de representaciones de recursos. Se basa en los siguientes principios clave:
 
-# Clase 5: Introducción a Node.js
+* **Arquitectura Cliente-Servidor:** Separación clara entre el cliente que realiza las peticiones y el servidor que las responde.
+* **Sin Estado (Stateless):** Cada petición del cliente al servidor debe contener toda la información necesaria para entender la petición. El servidor no guarda ningún estado sobre las sesiones del cliente entre peticiones.
+Por ejemplo, si un usuario inicia sesión en una aplicación, el servidor no recuerda que el usuario está autenticado. En su lugar, el cliente debe enviar un token o credenciales con cada solicitud para demostrar su identidad.
+Esto mejora la escalabilidad porque el servidor no necesita almacenar información de sesión, lo que permite manejar más usuarios simultáneamente.
+* **Cacheable:** Las respuestas deben ser etiquetadas como cacheables o no para que los clientes y los intermediarios puedan almacenar en caché las respuestas y mejorar la eficiencia.
+* **Interfaz Uniforme:** La comunicación entre el cliente y el servidor se realiza a través de una interfaz consistente, utilizando los métodos HTTP estándar, identificadores de recursos (URLs), representaciones de recursos (ej. JSON, XML) y enlaces.
+* **Sistema en Capas (Layered System):** La arquitectura puede estar compuesta por múltiples capas (cliente, servidor, proxies, etc.), y cada capa no necesita conocer los detalles de las otras capas.
+* **Código Bajo Demanda (Code-On-Demand) (Opcional):** El servidor puede extender la funcionalidad del cliente enviando código ejecutable (ej. JavaScript).
 
-## Objetivos:
+### 5. APIs RESTful
 
-* Comprender qué es Node.js y sus características principales.
-* Aprender cómo está construido Node.js internamente.
-* Familiarizarse con el uso de `module.exports` para modularizar código.
-* Explorar el módulo `fs` para interactuar con archivos (lectura y escritura).
+Una **API RESTful** es una API que implementa los principios de la arquitectura REST. Son ampliamente utilizadas para construir servicios web debido a su simplicidad, escalabilidad y facilidad de integración.
 
----
+**Características comunes de las APIs RESTful:**
 
-## Contenido:
+* Uso de URLs (URI) para identificar recursos: Cada recurso (usuario, producto, orden, etc.) tiene una URL única.
+    * Ejemplo: `/users` (lista de usuarios), `/users/123` (información del usuario con ID 123).
+* Uso de métodos HTTP para realizar acciones: `GET` (obtener), `POST` (crear), `PUT` (actualizar), `DELETE` (eliminar).
+* Uso de formatos de datos estándar: Generalmente JSON (JavaScript Object Notation) para la transferencia de datos debido a su ligereza y facilidad de parseo. También se puede usar XML.
+* Respuestas con códigos de estado HTTP: Para indicar el resultado de la petición.
+* Sin estado (Stateless): Cada petición del cliente es independiente y contiene toda la información necesaria.
 
-1. **¿Qué es Node.js?**
-   - Definición y casos de uso.
-   - Características principales: asincronismo, event-driven, cross-platform.
+### 6. Diferencia entre API REST y RESTful
 
-2. **¿Cómo está hecho Node.js?**
-   - Motor V8: Compilación de JavaScript a código máquina.
-   - Arquitectura interna: Single-threaded y Event Loop.
-   - Libuv: Soporte para E/S asíncronas y manejo de hilos.
+La distinción a menudo es sutil y en la práctica los términos se usan de manera intercambiable. Sin embargo, se podría decir que:
 
-3. **Modularización con `module.exports`**
-   - Exportar e importar módulos en Node.js.
-   - Ejemplo básico de modularización.
+* **API REST:** Se refiere a cualquier API que sigue los principios de la arquitectura REST.
+* **API RESTful:** Se enfatiza que la API implementa *completamente* y de forma *pura* todos los principios de REST.
 
-4. **Módulo `fs`: Trabajo con archivos**
-   - Lectura y escritura de archivos (sincrónica y asíncrona).
-   - Uso práctico del módulo `fs`.
+En la práctica, la mayoría de las APIs que se autodenominan "RESTful" intentan adherirse lo más posible a los principios de REST, aunque algunas pueden tener ciertas desviaciones.
 
-5. **Creación de un script básico**
-   - Combinar `module.exports` y `fs` para crear un script funcional.
----
+### 7. ¿Qué son los módulos `http`, `http2` y `https` y cuáles son sus diferencias?
 
-## Clase 6: Haciendo un Programa Interactivo con Node.js
+Node.js proporciona módulos nativos para trabajar con diferentes versiones del protocolo HTTP:
 
-**Objetivos:**
+* **`http`:** Este es el módulo principal para crear servidores y clientes HTTP/1.1. Es el módulo más básico y ampliamente utilizado para la mayoría de las aplicaciones web.
+* **`http2`:** Este módulo implementa el protocolo HTTP/2, una versión más reciente de HTTP que ofrece mejoras significativas en rendimiento, como multiplexación (enviar múltiples peticiones/respuestas simultáneamente sobre la misma conexión), compresión de encabezados y priorización de streams. Requiere una conexión segura (TLS/SSL).
+* **`https`:** Este módulo proporciona funcionalidades similares al módulo `http` pero para trabajar con conexiones seguras a través de TLS/SSL (Transport Layer Security/Secure Sockets Layer). Se utiliza para crear servidores y clientes HTTPS (HTTP sobre TLS/SSL). Internamente, utiliza el módulo `http` para la lógica HTTP y añade la capa de seguridad.
 
-* Crear programas de línea de comandos (CLI) con Node.js.
-* Manejar argumentos y opciones con `process.argv` y paquetes externos.
-* Desarrollar aplicaciones interactivas en la terminal.
+**Diferencias clave:**
 
-**Contenido:**
+| Característica        | `http` (HTTP/1.1) | `http2`           | `https` (HTTP/1.1 sobre TLS/SSL) |
+| :-------------------- | :---------------- | :---------------- | :------------------------------- |
+| Protocolo           | HTTP/1.1          | HTTP/2            | HTTP/1.1                         |
+| Multiplexación        | No                | Sí                | No                               |
+| Compresión de Headers | No                | Sí (HPACK)        | No                               |
+| Priorización          | No                | Sí                | No                               |
+| Seguridad             | No (implícita)    | Requiere TLS/SSL  | Sí (implícita)                   |
+| Uso                 | General para HTTP | Aplicaciones que   | Conexiones seguras (HTTPS)       |
+| Módulo Node.js       | `http`            | `http2`           | `https`                          |
 
-* Creación de un programa CLI (Command Line Interface).
-* Manejo de argumentos con `process.argv`.
-* Uso de paquetes externos como `yargs` o `commander`.
-* Ejercicio práctico: desarrollar una calculadora CLI o una lista de tareas.
+### 8. ¿Qué me conviene para trabajar localmente? ¿Se puede trabajar con cualquiera de los tres? ¿Se trabaja de la misma manera?
+
+Para trabajar **localmente**, el módulo **`http`** es generalmente suficiente y el más sencillo de configurar para la mayoría de las pruebas y desarrollos iniciales. No necesitas inherentemente la seguridad de `https` en un entorno local aislado, a menos que estés probando funcionalidades específicas que requieran HTTPS (como ciertas APIs de navegador o autenticación).
+
+Se **puede trabajar con cualquiera de los tres** módulos localmente:
+
+* **`http`:** Para servidores HTTP básicos sin cifrado.
+* **`https`:** Para simular un entorno HTTPS local. Esto requiere la generación de certificados SSL/TLS auto-firmados o el uso de herramientas como `mkcert`.
+* **`http2`:** También se puede usar localmente, pero requiere configurar HTTPS primero, ya que HTTP/2 se implementa sobre TLS/SSL en la mayoría de los navegadores.
+
+**¿Se trabaja de la misma manera?**
+
+No, la forma de trabajar varía ligeramente:
+
+* **`http`:** La creación de un servidor es directa.
+* **`https`:** Requiere la configuración de las opciones de TLS/SSL, incluyendo la especificación de certificados y claves.
+* **`http2`:** La API es un poco diferente a `http` y `https`, ya que maneja streams y headers de forma distinta para aprovechar las características de HTTP/2.
+
+
+### 9. Crear un servidor con el módulo `http` de Node.js
+
+```javascript
+// Importar el módulo http
+const http = require('http');
+
+// Definir el host y el puerto en el que el servidor escuchará
+const hostname = '127.0.0.1'; // localhost
+const port = 3000;
+
+// Crear el servidor
+const server = http.createServer((req, res) => {
+  // `req` (request): Objeto que representa la petición del cliente
+  // `res` (response): Objeto que se utiliza para enviar la respuesta al cliente
+
+  // Establecer las cabeceras de la respuesta
+  res.setHeader('Content-Type', 'text/plain');
+  res.statusCode = 200; // Código de estado OK
+
+  // Enviar el cuerpo de la respuesta
+  res.end('¡Hola desde el servidor de Node.js!\n');
+});
+
+// Hacer que el servidor escuche en el host y puerto especificados
+server.listen(port, hostname, () => {
+  console.log(`Servidor corriendo en http://${hostname}:${port}/`);
+});
+`````
+
+¿Por qué se envían los datos en chunks?
+
+Eficiencia de la red: Dividir los datos en chunks más pequeños permite una transmisión más eficiente a través de la red. Los chunks pueden enviarse en paralelo o intercalarse con otros datos, lo que reduce la latencia y mejora el rendimiento.
+Manejo de grandes cantidades de datos: Si el cliente envía una gran cantidad de datos (por ejemplo, un archivo grande), el servidor no tiene que esperar a que lleguen todos los datos antes de empezar a procesarlos. Puede empezar a procesar los chunks a medida que llegan, lo que reduce el consumo de memoria y mejora la capacidad de respuesta del servidor.
+Transmisión en tiempo real: Los chunks permiten la transmisión de datos en tiempo real. Por ejemplo, en una aplicación de streaming de video, el servidor puede enviar los datos del video en chunks a medida que se van generando, y el cliente puede empezar a reproducirlos antes de que se haya descargado el video completo.
+Cómo se manejan los chunks en Node.js
+
+En Node.js, el objeto req (que representa la petición del cliente) es un flujo de lectura (Readable Stream). Esto significa que puedes leer los datos de la petición de forma asíncrona, a medida que los chunks van llegando.
+
+Para leer los datos de la petición, se utilizan los eventos del flujo de lectura:
+
+data event: Este evento se emite cada vez que llega un nuevo chunk de datos. El callback de este evento recibe el chunk de datos como argumento.
+end event: Este evento se emite cuando se han recibido todos los chunks de datos y se ha completado la transmisión.
+En el código del ejercicio, esto se ve así:
+
+JavaScript
+
+let body = '';
+req.on('data', (chunk) => {
+    body += chunk;
+});
+req.on('end', () => {
+    // Aquí se procesan todos los datos recibidos
+    // La variable 'body' contiene la concatenación de todos los chunks
+    try {
+        const nuevaTareaData = JSON.parse(body);
+        // ...
+    } catch (error) {
+        // ...
+    }
+});
