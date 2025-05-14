@@ -1,29 +1,26 @@
 import http from "node:http";
-// console.log(`🚀 ~ http:`, http)
+import { obtenerTareas, crearTarea, obtenerTareaPorId, actualizarTarea, eliminarTarea } from "./tareas.js";
 
 const server = http.createServer((req, res) => {
-  console.log(`🚀 ~ method:`, req.method);
-  console.log(`🚀 ~ url:`, req.url);
-  // console.log(`🚀 ~ server ~ res:`, res)
+  const { method, url } = req;
+  const id = url.split("/")[2];g
 
-  const tareas = [];
-  let body = "";
-  req.on("data", (chunk) => {
-    body += chunk;
-    console.log(`🚀 ~ req.on ~ body:`, body);
-  });
-  req.on("end", () => {
-    tareas.push(JSON.parse(body));
-
-    console.log(`🚀 ~ server ~ tareas:`, tareas);
-    res.end("tarea creada con exito")
-  });
-
-
-  // res.end("hola clase de tp2")
-});
-// console.log(`🚀 ~ server:`, server)
-server.listen(8000, () => {
-  console.log(`🚀 ~ server.listen ~ http://localhost:8000`);
+  if (url === "/tareas" && method === "GET") {
+    obtenerTareas(res);
+  } else if (url === "/tareas" && method === "POST") {
+    crearTarea(req, res);
+  } else if (url.startsWith("/tareas/") && method === "GET") {
+    obtenerTareaPorId(id, res);
+  } else if (url.startsWith("/tareas/") && method === "PUT") {
+    actualizarTarea(id, req, res);
+  } else if (url.startsWith("/tareas/") && method === "DELETE") {
+    eliminarTarea(id, res);
+  } else {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ message: "Ruta no encontrada" }));
+  }
 });
 
+server.listen(3000, () => {
+  console.log("Servidor escuchando en http://localhost:3000");
+});
